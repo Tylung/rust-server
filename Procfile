@@ -1,2 +1,2 @@
-web: ./target/release/rocket_intro
+web: cargo run
 heroku ps:scale web=1
