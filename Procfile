@@ -1,2 +1,4 @@
-web: cargo run
-heroku ps:scale web=1
+VERSION = nightly
+ROCKET_PORT=$PORT 
+ROCKET_ENV=prod
+./target/release/nombre-binario
