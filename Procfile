@@ -1,4 +1,1 @@
-VERSION = nightly
-ROCKET_PORT=$PORT 
-ROCKET_ENV=prod
-./target/release/nombre-binario
+web: ROCKET_PORT=$PORT ROCKET_ENV=prod ./target/release/rocket_intro
