@@ -13,27 +13,39 @@
         {{ title }}
     </h1>
 
-    <button id="btn-click">
-        click me
+    <button class="btn-inc">
+        Count increase
     </button>
 
-    <div id="container" class="container">
+    <button class="btn-dec">
+        Count decrease
+    </button>
+
+    <div class="container">
             <h3> 
-                Count: <small id='elem'> 0 </small>     
+                Count: <small class="elem"> 0 </small>     
             </h3>
     </div>
 
 
 <script>
-    const button = document.querySelector('#btn-click');
-    
-    const container = document.querySelector('#container');
+    const btnIncrease = document.querySelector('.btn-inc');
+    const container = document.querySelector('.container');
+    const btnDecrease = document.querySelector('.btn-dec');
+    const elem = document.querySelector('.elem')
+
     let count = 0; 
-    button.addEventListener('click', () => {
-        const elem = document.querySelector('#elem')
+    btnIncrease.addEventListener('click', () => {
         count++ 
         elem.textContent = count
     })
+
+    btnDecrease.addEventListener('click', () => {
+        count--
+        elem.textContent = count
+    })
+
+
 </script>
 
 </body>

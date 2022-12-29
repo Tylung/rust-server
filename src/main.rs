@@ -1,5 +1,6 @@
 #[macro_use]
 extern crate rocket;
+use rocket_dyn_templates::{Template, context};
 use rocket::serde::{json::Json, Deserialize};
 
 mod profile;
@@ -13,11 +14,10 @@ struct Persona<'r> {
 }
 
 #[get("/")]
-fn index() -> &'static str {
-    // Template::render("index", context! {
-    //     title: "Rocket Overview"
-    // })
-    "Hola Mundo"
+fn index() -> Template {
+    Template::render("index", context! {
+        title: "Rocket Overview"
+    })
 }
 
 #[get("/api")]
@@ -53,11 +53,10 @@ fn api(persona: Json<Persona<'_>>) -> String {
 }
 
 #[catch(404)]
-fn not_found() -> &'static str {
-    // Template::render("notFound", context! {
-    //     msg: "Not Found"
-    // })
-    "Not found"
+fn not_found() -> Template {
+    Template::render("notFound", context! {
+        msg: "Not Found"
+    })
 }
 
 #[launch]
@@ -69,5 +68,5 @@ fn rocket() -> _ {
             "/profile",
             routes![get_profile, create_profile, update_profile, delete_profile],
         )
-    // .attach(Template::fairing())
+        .attach(Template::fairing())
 }
