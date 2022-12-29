@@ -1,7 +1,9 @@
 #[macro_use]
 extern crate rocket;
-// use rocket_dyn_templates::{Template, context};
 use rocket::serde::{json::Json, Deserialize};
+
+mod profile;
+use profile::{create_profile, delete_profile, update_profile, get_profile};
 
 #[derive(Deserialize)]
 #[serde(crate = "rocket::serde")]
@@ -16,6 +18,11 @@ fn index() -> &'static str {
     //     title: "Rocket Overview"
     // })
     "Hola Mundo"
+}
+
+#[get("/api")]
+fn get_api() -> &'static str {
+  "Api get"
 }
 
 #[post("/api", data = "<persona>")]
@@ -45,26 +52,6 @@ fn api(persona: Json<Persona<'_>>) -> String {
     return message;
 }
 
-#[get("/")]
-fn profile() -> &'static str {
-    "Profile!"
-}
-
-#[post("/")]
-fn create_profile() -> &'static str {
-    "New profile!"
-}
-
-#[put("/")]
-fn update_profile() -> &'static str {
-    "Updated profile!"
-}
-
-#[delete("/")]
-fn delete_profile() -> &'static str {
-    "Deleted profile!"
-}
-
 #[catch(404)]
 fn not_found() -> &'static str {
     // Template::render("notFound", context! {
@@ -77,10 +64,10 @@ fn not_found() -> &'static str {
 fn rocket() -> _ {
     rocket::build()
         .register("/", catchers![not_found])
-        .mount("/", routes![index, api])
+        .mount("/", routes![index, api, get_api])
         .mount(
             "/profile",
-            routes![profile, create_profile, update_profile, delete_profile],
+            routes![get_profile, create_profile, update_profile, delete_profile],
         )
     // .attach(Template::fairing())
 }
